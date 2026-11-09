@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="description" content="NEON CASINO — casino virtuel futuriste. 11 jeux, crédits 100 % virtuels, aucun argent réel.">
+  <meta name="theme-color" content="#05040d">
+  <title>NEON CASINO — Next Gen</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Unbounded:wght@400;600;800;900&family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;700&display=swap">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" href="css/games.css">
+</head>
+<body>
+  <!-- Ambient layers -->
+  <canvas id="bg-canvas" aria-hidden="true"></canvas>
+  <div class="bg-aurora" aria-hidden="true"><i></i><i></i><i></i></div>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-noise" aria-hidden="true"></div>
+
+  <!-- ===================================================================== -->
+  <!-- HEADER                                                                -->
+  <!-- ===================================================================== -->
+  <header class="topbar">
+    <a class="brand" href="#top" data-nav="top" aria-label="NEON CASINO — accueil">
+      <svg class="brand__mark" viewBox="0 0 48 48" aria-hidden="true">
+        <defs>
+          <linearGradient id="lg-brand" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#00f0ff"/><stop offset=".55" stop-color="#b14cff"/><stop offset="1" stop-color="#ff2bd6"/>
+          </linearGradient>
+        </defs>
+        <path class="brand__hex" d="M24 3l18 10.5v21L24 45 6 34.5v-21z" fill="none" stroke="url(#lg-brand)" stroke-width="2.5"/>
+        <path d="M17 33V15l14 18V15" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="brand__text">NEON<b>CASINO</b></span>
+    </a>
+
+    <nav class="nav" id="nav-menu" aria-label="Navigation principale" data-i18n-attr="aria-label">
+      <a href="#top" data-nav="top" data-i18n>Lobby</a>
+      <a href="#games" data-nav="games" data-i18n>Jeux</a>
+      <a href="#features" data-nav="features" data-i18n>Univers</a>
+      <a href="#" data-nav="profile" data-i18n>Profil</a>
+      <a href="#" data-nav="bank" data-i18n>Banque</a>
+    </nav>
+
+    <div class="hud">
+      <button class="level-chip" data-nav="profile" aria-label="Profil et niveau" data-i18n-attr="aria-label">
+        <span class="xp-ring" data-xp-ring style="--p:0"><span data-level>1</span></span>
+        <span class="level-chip__info">
+          <span class="lbl"><span data-i18n>Niveau</span> <b data-level>1</b></span>
+          <span class="xp-bar"><i data-xp-fill></i></span>
+        </span>
+      </button>
+
+      <button class="wallet-pill" data-nav="bank" aria-label="Solde — ouvrir la banque" data-i18n-attr="aria-label">
+        <span class="wallet-pill__icon" aria-hidden="true">₵</span>
+        <span class="wallet-pill__txt">
+          <span class="lbl" data-i18n>Crédits virtuels</span>
+          <span class="wallet-pill__val num" data-balance>100 000</span>
+        </span>
+        <span class="debt-flag" hidden title="Dette en cours">−<span data-debt>0</span></span>
+      </button>
+
+      <button class="icon-btn" id="sound-btn" aria-label="Activer/couper le son" data-i18n-attr="aria-label" aria-pressed="true">
+        <svg class="ico-on" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9zM16.5 8.5a5 5 0 010 7M19 6a8.5 8.5 0 010 12"/></svg>
+        <svg class="ico-off" viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9zM17 9l5 6M22 9l-5 6"/></svg>
+      </button>
+      <button class="icon-btn" id="fx-btn" aria-label="Activer/réduire les effets visuels" data-i18n-attr="aria-label" aria-pressed="true">
+        <svg class="ico-on" viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M2 12h4M18 12h4M5 5l2.5 2.5M16.5 16.5L19 19M5 19l2.5-2.5M16.5 7.5L19 5"/><circle cx="12" cy="12" r="3"/></svg>
+        <svg class="ico-off" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M4 4l16 16"/></svg>
+      </button>
+      <div class="lang-switch" role="group" aria-label="Langue / Dil">
+        <button data-lang="fr" title="Français">FR</button>
+        <button data-lang="tr" title="Türkçe">TR</button>
+      </div>
+      <button class="icon-btn menu-btn" id="menu-btn" aria-label="Menu">
+        <svg viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- =================================================================== -->
+    <!-- HERO                                                                -->
+    <!-- =================================================================== -->
+    <section class="hero">
+      <div class="hero__content">
+        <div class="hero__kicker"><span class="dot-live"></span> <span data-i18n>Neo-Tokyo District 7 · Ouvert 24/7 · An 2077</span></div>
+        <h1 class="hero__title" aria-label="NEON CASINO">
+          <span class="hero__line glitch" data-text="NEON">NEON</span>
+          <span class="hero__line hero__line--outline" data-text="CASINO">CASINO</span>
+        </h1>
+        <p class="hero__lead" data-i18n>Onze jeux nouvelle génération, une économie virtuelle unique et des effets dignes d'un hologramme de luxe. Ici, on joue pour le frisson — <strong>jamais pour de l'argent réel</strong>.</p>
+        <div class="hero__cta">
+          <a class="btn btn--primary btn--lg" href="#games" data-nav="games">
+            <span data-i18n>Entrer dans le casino</span>
+            <svg viewBox="0 0 24 24"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+          </a>
+          <button class="btn btn--ghost btn--lg" data-open="plinko" data-i18n>Lancer une bille</button>
+        </div>
+        <dl class="hero__stats">
+          <div><dt data-i18n>Jeux</dt><dd class="num" id="stat-games">11</dd></div>
+          <div><dt data-i18n>Solde</dt><dd class="num"><span data-balance>100 000</span> ₵</dd></div>
+          <div><dt data-i18n>Niveau</dt><dd class="num" data-level>1</dd></div>
+        </dl>
+      </div>
+
+      <div class="hero__visual" aria-hidden="true">
+        <div class="holo">
+          <div class="holo__ring holo__ring--1"></div>
+          <div class="holo__ring holo__ring--2"></div>
+          <div class="holo__ring holo__ring--3"></div>
+          <svg class="holo__chip" viewBox="0 0 200 200">
+            <defs>
+              <linearGradient id="lg-chip" x1="0" y1="0" x2="1" y2="1">
+                <stop offset="0" stop-color="#00f0ff"/><stop offset=".5" stop-color="#b14cff"/><stop offset="1" stop-color="#ff2bd6"/>
+              </linearGradient>
+              <radialGradient id="rg-chip" cx=".5" cy=".4" r=".7">
+                <stop offset="0" stop-color="#1b1640"/><stop offset="1" stop-color="#07060f"/>
+              </radialGradient>
+            </defs>
+            <circle cx="100" cy="100" r="92" fill="url(#rg-chip)" stroke="url(#lg-chip)" stroke-width="5"/>
+            <g stroke="url(#lg-chip)" stroke-width="14" stroke-dasharray="20 28.4" fill="none">
+              <circle cx="100" cy="100" r="80"/>
+            </g>
+            <circle cx="100" cy="100" r="58" fill="none" stroke="rgba(255,255,255,.25)" stroke-width="1.5" stroke-dasharray="3 5"/>
+            <text x="100" y="114" text-anchor="middle" font-family="Unbounded, sans-serif" font-weight="900" font-size="44" fill="#fff">NC</text>
+            <text x="100" y="138" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" fill="#00f0ff" letter-spacing="3">2077</text>
+          </svg>
+          <div class="holo__card holo__card--a"><span>A</span><i>♠</i></div>
+          <div class="holo__card holo__card--b"><span>K</span><i>♥</i></div>
+          <div class="holo__die"><i></i><i></i><i></i><i></i><i></i></div>
+          <div class="holo__floor"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Marquee -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>BLACKJACK</span><b>✦</b><span>ROULETTE</span><b>✦</b><span>SLOTS</span><b>✦</b><span>ROCKET CRASH</span><b>✦</b><span>MINES</span><b>✦</b><span>PLINKO</span><b>✦</b><span>DICE</span><b>✦</b><span>COIN</span><b>✦</b><span>HOLD'EM</span><b>✦</b><span>OKEY 101</span><b>✦</b><span>BACCARAT</span><b>✦</b>
+        <span>BLACKJACK</span><b>✦</b><span>ROULETTE</span><b>✦</b><span>SLOTS</span><b>✦</b><span>ROCKET CRASH</span><b>✦</b><span>MINES</span><b>✦</b><span>PLINKO</span><b>✦</b><span>DICE</span><b>✦</b><span>COIN</span><b>✦</b><span>HOLD'EM</span><b>✦</b><span>OKEY 101</span><b>✦</b><span>BACCARAT</span><b>✦</b>
+      </div>
+    </div>
+
+    <!-- =================================================================== -->
+    <!-- GAMES                                                               -->
+    <!-- =================================================================== -->
+    <section class="section" id="games">
+      <div class="section__head reveal">
+        <div>
+          <span class="eyebrow" data-i18n>// Salle des jeux</span>
+          <h2 class="section__title" data-i18n>Choisissez votre réalité</h2>
+        </div>
+        <div class="tabs" id="filter-tabs" role="tablist" aria-label="Catégories de jeux" data-i18n-attr="aria-label"></div>
+      </div>
+      <div class="games-grid" id="games-grid"></div>
+    </section>
+
+    <!-- =================================================================== -->
+    <!-- FEATURES                                                            -->
+    <!-- =================================================================== -->
+    <section class="section" id="features">
+      <div class="section__head reveal">
+        <div>
+          <span class="eyebrow" data-i18n>// Univers</span>
+          <h2 class="section__title" data-i18n>Un casino qui vient du futur</h2>
+        </div>
+      </div>
+      <div class="features">
+        <div class="feature glass reveal">
+          <div class="feature__ico" style="--c:#00f0ff"><svg viewBox="0 0 24 24"><path d="M12 2l8 4v6c0 5-3.5 8.5-8 10-4.5-1.5-8-5-8-10V6z"/><path d="M8.5 12l2.5 2.5 4.5-5"/></svg></div>
+          <h3 data-i18n>100 % virtuel</h3>
+          <p data-i18n>Aucun dépôt, aucun retrait, aucun paiement. Des crédits fictifs pour le plaisir et l'apprentissage.</p>
+        </div>
+        <div class="feature glass reveal">
+          <div class="feature__ico" style="--c:#b14cff"><svg viewBox="0 0 24 24"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg></div>
+          <h3 data-i18n>Progression</h3>
+          <p data-i18n>Gagnez de l'XP à chaque partie, montez de niveau et débloquez des bonus de crédits.</p>
+        </div>
+        <div class="feature glass reveal">
+          <div class="feature__ico" style="--c:#ff2bd6"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div>
+          <h3 data-i18n>Mathématiques exactes</h3>
+          <p data-i18n>Probabilités affichées, paiements vérifiés, physique Plinko réelle : la bille décide, pas un script.</p>
+        </div>
+        <div class="feature glass reveal">
+          <div class="feature__ico" style="--c:#b6ff00"><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9zM16.5 8.5a5 5 0 010 7"/></svg></div>
+          <h3 data-i18n>Immersion</h3>
+          <p data-i18n>Sons synthétisés, particules, animations fluides. Tout est désactivable d'un clic.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__brand">NEON<b>CASINO</b> <span class="muted">· Next Gen</span></div>
+    <p class="muted small" data-i18n>Projet de divertissement. Les crédits « ₵ » n'ont aucune valeur et ne peuvent être ni achetés ni échangés. Si le jeu d'argent réel vous pose problème, parlez-en à un proche ou à un service d'aide.</p>
+  </footer>
+
+  <!-- ===================================================================== -->
+  <!-- GAME OVERLAY                                                          -->
+  <!-- ===================================================================== -->
+  <div id="game-overlay" class="game-overlay" aria-hidden="true">
+    <div class="game-window" role="dialog" aria-modal="true" aria-labelledby="game-title">
+      <div class="game-window__bar">
+        <div class="game-window__id">
+          <span class="game-window__icon" id="game-icon"></span>
+          <div>
+            <h2 id="game-title" class="game-window__title">Jeu</h2>
+            <p id="game-sub" class="game-window__sub"></p>
+          </div>
+        </div>
+        <div class="game-window__tools">
+          <div class="wallet-pill wallet-pill--mini" aria-label="Solde">
+            <span class="wallet-pill__icon" aria-hidden="true">₵</span>
+            <span class="wallet-pill__val num" data-balance>100 000</span>
+          </div>
+          <button class="icon-btn" id="game-rules-btn" aria-label="Règles du jeu" title="Règles" data-i18n-attr="aria-label,title">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9.5 9.5a2.5 2.5 0 114 2c-1 .7-1.5 1.2-1.5 2.5M12 17v.01"/></svg>
+          </button>
+          <button class="icon-btn icon-btn--close" id="game-close" aria-label="Fermer le jeu" title="Fermer (Échap)" data-i18n-attr="aria-label,title">
+            <svg viewBox="0 0 24 24"><path d="M6 6l12 12M18 6L6 18"/></svg>
+          </button>
+        </div>
+      </div>
+      <div id="game-area" class="game-area"></div>
+    </div>
+  </div>
+
+  <div id="toast-container" class="toasts" aria-live="polite"></div>
+  <canvas id="fx-canvas" aria-hidden="true"></canvas>
+
+  <!-- Core -->
+  <script src="js/core/utils.js"></script>
+  <script src="js/core/i18n.js"></script>
+  <script src="js/core/i18n-tr.js"></script>
+  <script src="js/core/store.js"></script>
+  <script src="js/core/audio.js"></script>
+  <script src="js/core/fx.js"></script>
+  <script src="js/core/ui.js"></script>
+  <script src="js/core/registry.js"></script>
+  <!-- Pure game logic (also used by the Node unit tests) -->
+  <script src="js/logic/cards.js"></script>
+  <script src="js/logic/poker-eval.js"></script>
+  <script src="js/logic/baccarat-rules.js"></script>
+  <script src="js/logic/okey-rules.js"></script>
+  <script src="js/logic/slots-math.js"></script>
+  <!-- Games -->
+  <script src="js/games/blackjack.js"></script>
+  <script src="js/games/roulette.js"></script>
+  <script src="js/games/slots.js"></script>
+  <script src="js/games/crash.js"></script>
+  <script src="js/games/mines.js"></script>
+  <script src="js/games/plinko.js"></script>
+  <script src="js/games/dice.js"></script>
+  <script src="js/games/coinflip.js"></script>
+  <script src="js/games/poker.js"></script>
+  <script src="js/games/okey.js"></script>
+  <script src="js/games/baccarat.js"></script>
+  <!-- App shell (boots last) -->
+  <script src="js/core/app.js"></script>
+</body>
+</html>

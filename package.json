@@ -1,0 +1,15 @@
+{
+  "name": "neon-casino-next-gen",
+  "version": "2.0.0",
+  "description": "Futuristic virtual casino — 11 games, virtual credits only (no real money).",
+  "private": true,
+  "scripts": {
+    "serve": "python3 -m http.server 8765 || python -m http.server 8765",
+    "test": "node tests/logic.test.js",
+    "test:e2e": "node tests/e2e.test.js"
+  },
+  "devDependencies": {
+    "playwright": "^1.47.0"
+  },
+  "license": "UNLICENSED"
+}
