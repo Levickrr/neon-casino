@@ -109,3 +109,4 @@ Only two bugs were fixed, without touching any formula:
 - Game animations (roulette, reels, coin, dealt cards) are the game itself and always play. When the operating system's "reduce motion" setting is on, only decorative background animations are calmed.
 - Keyboard: `Esc` closes a game. In Blackjack, `H` / `S` / `D` / `P` and `Enter` play. In Slots and Crash, `Space` spins or launches.
 
+---
